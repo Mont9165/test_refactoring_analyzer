@@ -1,0 +1,16 @@
+{
+    "refactoring_info": {
+        "Custom Assertion": 1,
+        "Mock Object": 1,
+        "Testcase SuperClass": 1,
+        "Change Assertion Type": 2,
+        "Custom Annotation": 2,
+        "Temporary Directory Annotation": 1,
+        "Creation Method": 6,
+        "Implicit Setup": 5,
+        "Inline Setup": 1,
+        "ExtendWith Annotation": 1,
+        "Cleanup Method": 1
+    },
+    "total_count": 22
+}
