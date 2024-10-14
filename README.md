@@ -9,11 +9,13 @@
   - `1_test_refactoring_collection/`: RefactorHubからデータを取得するためのスクリプトを格納するディレクトリ
   - `2_test_refactoring_analysis/`: テストリファクタリングの分析を行うスクリプトを格納するディレクトリ
 
+## Version
+Python3.10を使用
 
 ## 使い方
 ```
-python -m venv venv
+python3.10 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python src/1_test_refactoring_collection/collect_data.py
+python3 src/1_test_refactoring_collection/get_json_from_refactorhub.py
 ```
