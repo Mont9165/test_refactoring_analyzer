@@ -2,19 +2,17 @@ import json
 import subprocess
 from urllib.parse import urlparse
 import os
-import git
 import logging
 import pandas as pd
 
 logging.basicConfig(
-    level=logging.INFO, # ログレベルをINFOに設定
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', # ログのフォーマットを設定
-    filename='logfile.log', # ログを保存するファイル名を指定
-    filemode='a' # ログファイルを追記モードで開く
+    level=logging.INFO,  # ログレベルをINFOに設定
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # ログのフォーマットを設定
+    filename='logfile.log',  # ログを保存するファイル名を指定
+    filemode='a'  # ログファイルを追記モードで開く
 )
 
 logger = logging.getLogger(__name__)
-
 
 FILE_PATH = os.path.abspath('../data/Inspected_changes_with_commit_urls.json')
 
@@ -26,7 +24,8 @@ def load_json(file_path):
 
 
 def conduct_testsmell(project_dir, src_dir, commit_id):
-    logger.info(f'Starting conduct_testsmell with project_dir={project_dir}, src_main_path={src_dir}, commit_id={commit_id}')
+    logger.info(
+        f'Starting conduct_testsmell with project_dir={project_dir}, src_main_path={src_dir}, commit_id={commit_id}')
 
     jar_path = "/Users/horikawa/Dev/sakigake/Database-mining/RefactorHub-mining/tool/TestSmellDetector/target/TestSmellDetector-0.1-jar-with-dependencies.jar"
     project_dir = os.path.abspath(project_dir)
@@ -35,8 +34,8 @@ def conduct_testsmell(project_dir, src_dir, commit_id):
     print(["java", "-jar", jar_path, project_dir, src_dir, commit_id])
 
     subprocess.run(["java", "-jar", jar_path, project_dir, src_dir, commit_id])
-    logger.info(f'Finished conduct_testsmell with project_dir={project_dir}, src_main_path={src_dir}, commit_id={commit_id}')
-
+    logger.info(
+        f'Finished conduct_testsmell with project_dir={project_dir}, src_main_path={src_dir}, commit_id={commit_id}')
 
 
 def extract_owner_and_repo(url):
@@ -44,11 +43,6 @@ def extract_owner_and_repo(url):
     path = parsed_url.path
     owner, repo = path.split('/')[1:3]
     return owner + "/" + repo
-
-
-def git_clone(project_resource_dir, commit_url):
-    repo_url = '/'.join(commit_url.split('/')[:5]) + '.git'
-    git.Repo.clone_from(repo_url, project_resource_dir)
 
 
 def parse_src_path(path):
@@ -68,13 +62,6 @@ def extract_parent_commit_id(commit_id):
 
 def collect_testsmell(project_dir, commit_url, commit_id, repo_owner_and_name, row):
     try:
-        # TODO java側でクローンとチェックアウトするように変更した
-        # if not os.path.exists(project_dir):
-        #     git_clone(project_dir, commit_url)
-        # repo = git.Repo(project_dir)
-        # repo.git.checkout(commit_id)
-        # print(f'{repo_owner_and_name}: {commit_id} checked out')
-
         for after_data in row['Parameter Data']['after']['added codes']['elements']:
             src_main_path = f'{project_dir}/{parse_src_path(after_data["location"]["path"])}main'
             conduct_testsmell(project_dir, src_main_path, commit_id)
@@ -82,6 +69,7 @@ def collect_testsmell(project_dir, commit_url, commit_id, repo_owner_and_name, r
     except Exception as e:
         logger.error(f'Error occurred in {repo_owner_and_name} with commit_id={commit_id}')
         print(e)
+
 
 def main():
     json_data = load_json(FILE_PATH)

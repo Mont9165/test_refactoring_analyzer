@@ -2,7 +2,6 @@ import json
 import subprocess
 from urllib.parse import urlparse
 import os
-import git
 import logging
 import pandas as pd
 

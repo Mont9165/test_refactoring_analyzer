@@ -45,7 +45,7 @@ def main():
             "Commit URL": commit_url
         })
     now = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    save_to_json(data, filename='../../data/RefactorHub/Inspected_data_with_commit_urls_' + now + '.json')
+    save_to_json(data, filename='data/RefactorHub/Inspected_data_' + now + '.json')
 
 
 if __name__ == '__main__':
