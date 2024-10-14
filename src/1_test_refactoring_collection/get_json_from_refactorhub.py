@@ -1,5 +1,6 @@
 import json
 import os.path
+from datetime import datetime
 from os import getenv
 import psycopg2
 
@@ -43,8 +44,8 @@ def main():
             "Parameter Data": parameter_data,
             "Commit URL": commit_url
         })
-
-    save_to_json(data, filename='../../data/RefactorHub/Inspected_changes_with_commit_urls.json')
+    now = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+    save_to_json(data, filename='../../data/RefactorHub/Inspected_data_with_commit_urls_' + now + '.json')
 
 
 if __name__ == '__main__':

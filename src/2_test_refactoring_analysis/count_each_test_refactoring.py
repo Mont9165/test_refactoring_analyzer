@@ -17,8 +17,10 @@ def extract_owner_and_repo(url):
 
 
 def main():
-    file_path = '../../data/RefactorHub/Inspected_changes_with_commit_urls.json'
-    output_file = '../../data/TestRefactoring/refactoring_info.json'
+    # TODO change the file path
+    file_path = '../../data/RefactorHub/Inspected_data_with_commit_urls_2024-10-14-10-25-07.json'
+    output_file = '../../data/TestRefactoring/not_use/refactoring_info.json'
+
     data = load_json(file_path)
 
     repo_dict = {}
